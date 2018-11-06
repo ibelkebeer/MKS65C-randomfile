@@ -25,10 +25,17 @@ int main(){
     printf("%d\n", ary[i]);
   }
   int y = open("file.txt", O_WRONLY | O_CREAT, 0644);
-  write(y, ary, 10 * sizeof(unsigned int));
+  if(y == -1){
+    printf("Error opening file");
+  }
+  if(write(y, ary, 10 * sizeof(unsigned int)) == -1){
+    printf("Error writing to file");
+  }
   close(y);
   y = open("file.txt", O_RDONLY);
-  read(y, ary2, 10 * sizeof(unsigned int));
+  if(read(y, ary2, 10 * sizeof(unsigned int)) == -1){
+    printf("Error reading file");
+  }
   close(y);
   printf("Array values copied:\n");
   for(i = 0; i < 10; i ++){
